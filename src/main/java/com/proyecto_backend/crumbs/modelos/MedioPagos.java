@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;  
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+
 
 import java.time.LocalDateTime; 
 
@@ -143,6 +145,7 @@ public class MedioPagos {
     }
 
 
-
+    @OneToMany(mappedBy = "medioPago") 
+    private List<Gasto> gastos;
     
 }

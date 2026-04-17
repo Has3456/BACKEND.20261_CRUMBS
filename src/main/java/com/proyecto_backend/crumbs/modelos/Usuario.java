@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
+import java.util.List;  
+
 
 
 
@@ -149,5 +152,15 @@ public class Usuario {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Gasto> gastos;
+
+    @OneToMany(mappedBy = "usuario") 
+    private List<MedioPagos> metodosPago; 
+
+    @OneToMany(mappedBy = "usuario") 
+    private List<Categoria> categoriasCreadas;
 
 }
