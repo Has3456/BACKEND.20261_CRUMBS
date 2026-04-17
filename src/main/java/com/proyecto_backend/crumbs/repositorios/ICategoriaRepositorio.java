@@ -5,13 +5,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.proyecto_backend.crumbs.modelos.Categoria;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
 public interface ICategoriaRepositorio extends JpaRepository<Categoria, Integer> {
 
     //1 NOMBRE
-    Optional <Categoria> findByNombre(String nombre);   
+    Optional<Categoria> findByNombre(String nombre);   
 
     //2 FECHA DE CREACION
     List <Categoria> findByFechaCreacion(String fechaCreacion);
