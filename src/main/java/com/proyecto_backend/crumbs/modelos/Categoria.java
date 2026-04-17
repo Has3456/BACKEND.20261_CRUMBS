@@ -141,4 +141,6 @@ public class Categoria {
         this.limiteOperativo = limiteOperativo;
     }
 
+
+    
 }
