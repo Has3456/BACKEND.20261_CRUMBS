@@ -28,19 +28,24 @@ public class MedioPago {
 
    
 
-    private String naturalezaGasto; // Indica si el gasto es fijo o variable.
+    private String naturalezaGasto; 
+    // Indica si el gasto es fijo o variable.
     // Ayuda a saber qué gastos son obligatorios y cuáles se pueden reducir si es necesario.
 
-    private String comportamientoEsperado; // Muestra la estrategia financiera del usuario.
+    private String comportamientoEsperado; 
+    // Muestra la estrategia financiera del usuario.
     // Permite saber si la persona busca ahorrar, controlar o gastar libremente.
 
-    private String periodicidadSugerida; // Indica cada cuánto sería recomendable hacer ese gasto.
+    private String periodicidadSugerida; 
+    // Indica cada cuánto sería recomendable hacer ese gasto.
     // Sirve para alertar si el usuario está gastando más seguido de lo normal.
 
-    private String claseConsumo; // Diferencia si el gasto fue en un producto físico o en un servicio.
+    private String claseConsumo; 
+    // Diferencia si el gasto fue en un producto físico o en un servicio.
     // Ayuda a identificar gastos como suscripciones que pasan desapercibidas.
 
-    private Double limiteOperativo; // Representa el monto máximo que se debería gastar.
+    private Double limiteOperativo; 
+    // Representa el monto máximo que se debería gastar.
     // Sirve como referencia para no exceder el presupuesto mensual.
 
 

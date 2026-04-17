@@ -4,14 +4,15 @@ import java. util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.proyecto_backend.crumbs.modelos.MedioPagos;
+import com.proyecto_backend.crumbs.modelos.MedioPago;
 import java.time.LocalDateTime;
 
 
 
 
+
 @Repository
-public interface IMedioPagosRepositorio extends JpaRepository<MedioPagos, Integer> {
+public interface IMedioPagoRepositorio extends JpaRepository<MedioPago, Integer> {
 
     
     //1. DEFINO QUE ATRIBUTOS TIENE MI MODELO Y SOLO SOBRE ESOS ATRIBUTOS PUEDO IMPLMENTAR LAS BUSQUEDAS
@@ -27,7 +28,21 @@ public interface IMedioPagosRepositorio extends JpaRepository<MedioPagos, Intege
 
     //BUSCAR POR JUSTIFICACION
     List<MedioPago> findByJustificacion(String justificacion);
-    
+
+    //BUSCAR POR NATURALEZA DEL GASTO
+    List<MedioPago> findByNaturalezaGasto(String naturalezaGasto);
+
+    //BUSCAR POR COMPORTAMIENTO ESPERADO
+    List<MedioPago> findByComportamientoEsperado(String comportamientoEsperado);
+
+    //BUSCAR POR PERIODICIDAD SUGERIDA
+    List<MedioPago> findByPeriodicidadSugerida(String periodicidadSugerida);
+
+    //BUSCAR POR CLASE DE CONSUMO
+    List<MedioPago> findByClaseConsumo(String claseConsumo);
+
+    //BUSCAR POR LÍMITE OPERATIVO
+    List<MedioPago> findByLimiteOperativo(Double limiteOperativo);      
 
 
 
