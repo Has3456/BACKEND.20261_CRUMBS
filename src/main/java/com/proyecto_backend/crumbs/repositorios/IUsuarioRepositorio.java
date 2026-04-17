@@ -2,11 +2,11 @@ package com.proyecto_backend.crumbs.repositorios;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.stereotype.Repository;   
 import com.proyecto_backend.crumbs.modelos.Usuario;
+import com.proyecto_backend.crumbs.modelos.TipoDocumento;
+
 
 @Repository
 public interface IUsuarioRepositorio extends JpaRepository<Usuario, Integer> {
