@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
-
 @Entity
 @Table(name = "gasto")
 
@@ -196,7 +195,7 @@ public class Gasto {
 
     @ManyToOne
     @JoinColumn(name = "medio_pago_id")
-    private medioPago medioPago; 
+    private MedioPago medioPago; 
 
     @ManyToOne
     @JoinColumn(name = "comercio_id")

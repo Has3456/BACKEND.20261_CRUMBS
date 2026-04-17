@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;  
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
+import java.util.List;
 
 
 import java.time.LocalDateTime; 
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "medio_pagos")
 
-public class MedioPagos {
+public class MedioPago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +45,11 @@ public class MedioPagos {
 
 
     // Constructor vacío
-    public MedioPagos() {
+    public MedioPago() {
     }
 
     // Constructor con todos los campos
-    public MedioPagos(Integer id, String nombre, LocalDateTime fechaCreacion, String responsable, 
+    public MedioPago(Integer id, String nombre, LocalDateTime fechaCreacion, String responsable, 
                       String justificacion, String naturalezaGasto, String comportamientoEsperado, 
                       String periodicidadSugerida, String claseConsumo, Double limiteOperativo) {
         this.id = id;
