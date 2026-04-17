@@ -149,4 +149,5 @@ public class Usuario {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
 }
