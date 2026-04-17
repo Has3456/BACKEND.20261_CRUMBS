@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public interface IMedioPagoRepositorio extends JpaRepository<MedioPago, Integer> {
 
     
+    
     //1. DEFINO QUE ATRIBUTOS TIENE MI MODELO Y SOLO SOBRE ESOS ATRIBUTOS PUEDO IMPLMENTAR LAS BUSQUEDAS
 
      //BUSCAR POR NOMBRE
@@ -42,7 +43,7 @@ public interface IMedioPagoRepositorio extends JpaRepository<MedioPago, Integer>
     List<MedioPago> findByClaseConsumo(String claseConsumo);
 
     //BUSCAR POR LÍMITE OPERATIVO
-    List<MedioPago> findByLimiteOperativo(Double limiteOperativo);      
+    List<MedioPago> findByLimiteOperativo(Double limiteOperativo);       
 
 
 
