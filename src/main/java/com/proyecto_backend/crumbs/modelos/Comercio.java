@@ -43,7 +43,7 @@ public class Comercio {
 
     //Constructores
 
-    // Constructor vacío necesario para JPA
+    // Constructor vacío necesario 
     public Comercio() {
     }
 
@@ -146,7 +146,8 @@ public class Comercio {
     }
 
 
-    @ManyToOne 
+    // Relaciones con otras entidades
+@ManyToOne 
 @JoinColumn(name = "creador_id") private Usuario creador; 
 @OneToMany(mappedBy = "categoria") private List<Gasto> gastos;
 

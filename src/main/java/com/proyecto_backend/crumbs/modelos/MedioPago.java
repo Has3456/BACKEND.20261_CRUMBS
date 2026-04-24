@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 
 public class MedioPago {
 
+
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
@@ -150,6 +152,8 @@ public class MedioPago {
         this.limiteOperativo = limiteOperativo;
     }
 
+
+    // Relaciones con otras entidades
 
     @OneToMany(mappedBy = "medioPago") 
     private List<Gasto> gastos;

@@ -5,8 +5,12 @@ import java.time.LocalDateTime;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.GenerationType;
+import java.util.List;
 
 @Entity
 @Table(name = "categoria")
@@ -61,6 +65,7 @@ public class Categoria {
         this.limiteOperativo = limiteOperativo;
     }
 
+    // Getters y Setters
     public Integer getId() {
         return id;
     }
@@ -142,5 +147,10 @@ public class Categoria {
     }
 
 
-    
+    // Relaciones con otras entidades
+@OneToMany(mappedBy = "categoria")
+private List<Gasto> gastos;
+@ManyToOne
+@JoinColumn(name = "usuario_id")
+private Usuario usuario;
 }

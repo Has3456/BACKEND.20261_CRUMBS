@@ -12,6 +12,7 @@ import java.util.List;
 @Table(name = "usuarios")
 public class Usuario {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

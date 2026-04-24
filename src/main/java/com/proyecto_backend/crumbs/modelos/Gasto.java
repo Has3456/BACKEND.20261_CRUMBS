@@ -17,6 +17,8 @@ import jakarta.persistence.Table;
 
 public class Gasto {
 
+    // Atributos
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -43,11 +45,15 @@ public class Gasto {
 
 
     
+    //Constructores
+
+    // Constructor vacío necesario
     public Gasto() {
     }
 
 
 
+    // Constructor con parámetros
     public Gasto(Integer id, String descripcion, LocalDate fecha, Double valor, String imagen, String tipoNecesidad,
             String frecuenciaGasto, String lugarConsumo, String medioVerficacion, String gradoNecesidad) {
         this.id = id;
@@ -63,6 +69,7 @@ public class Gasto {
     }
 
 
+    // Getters y Setters
 
     public Integer getId() {
         return id;
@@ -184,6 +191,7 @@ public class Gasto {
 
 
 
+    // Relaciones con otras entidades
     
     @ManyToOne
     @JoinColumn(name = "usuario_id")
