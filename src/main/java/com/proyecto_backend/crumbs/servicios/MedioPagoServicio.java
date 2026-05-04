@@ -34,4 +34,72 @@ public class MedioPagoServicio {
         return repositorio.findAll();
     } 
 
+    ///////////////////////////
+      //funcion para modificar un usuario
+    public MedioPago modificar_medio_pago(Integer id, MedioPago datosNuevos){
+
+
+        Optional<MedioPago> medio_pago_que_busco=repositorio.findById(id);
+        if(medio_pago_que_busco.isEmpty()){
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Medio de pago no encontrado"
+            );
+
+        }else{
+
+            MedioPago medio_pago_encontrado=medio_pago_que_busco.get();
+            //modifiquemos datos
+            medio_pago_encontrado.setNombres(datosNuevos.getNombres());
+            medio_pago_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
+            return repositorio.save(medio_pago_encontrado);
+           
+        }
+
+    }
+        
+       ///////////////////////////////////
+           //funcion para eliminar un usuario
+    public boolean eliminar_medio_pago(Integer id){
+
+        Optional<MedioPago> medio_pago_que_busco=repositorio.findById(id);
+        if(medio_pago_que_busco.isEmpty()){
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Medio de pago no encontrado"
+            );
+
+        }else{
+           repositorio.deleteById(id);
+           return true;
+        }
+
+
+    }
+
+    /////////////////////////////
+        //funcion para buscar un usuario por id
+    public MedioPago buscar_medio_pago_por_id(Integer id){
+
+        Optional<MedioPago> medio_pago_que_busco=repositorio.findById(id);
+        if(medio_pago_que_busco.isEmpty()){
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Medio de pago no encontrado"
+            );
+
+        }else{
+            return medio_pago_que_busco.get();
+        }
+
+    }
+    
+
+
+
+
+
+
+
+
 } 

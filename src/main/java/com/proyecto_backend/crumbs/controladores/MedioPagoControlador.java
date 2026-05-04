@@ -30,5 +30,26 @@ public class MedioPagoControlador {
 
     }
 
+    /////////////////////////////
+    //control para modificar
+      @putMapping ("/{id}")
+        public ResponseEntity<?>controladorModificar(@pathVariavle integer id, @RequestBody MedioPago datos){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_medio_pago(id, datos));
+        } 
+
+
+      //////////////////////////////
+      /// control para eliminar
+       @DeleteMapping("/{id}")
+        public ResponseEntity<?>controladorEliminar(@pathVariavle integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_medio_pago(id));
+        }
+
+        /////////////////////
+        //control para buscar por id
+        @GetMapping ("/{id}")
+        public ResponseEntity<?>controladorBuscarPorId(@pathVariavle integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_medio_pago_por_id(id));
+        }
 
 }
