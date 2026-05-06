@@ -35,6 +35,31 @@ public class UsuarioControlador {
          );
 
     }
+    ///////////////////////////
+    //control para modificar
+       @putMapping ("/{id}")
+        public ResponseEntity<?>controladorModificar(@pathVariavle integer id, @RequestBody Usuario datos){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_usuario(id, datos));
+        }  
+
+     ////////////////////
+      //control para eliminar
+       @DeleteMapping("/{id}")
+        public ResponseEntity<?>controladorEliminar(@pathVariavle integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_usuario());
+        }   
+
+      ////////////////////////////////   
+       @GetMapping ("/{id}")
+        public ResponseEntity<?>controladorBuscarPorId(@pathVariavle integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_usuario(id));
+        }
+        
+
+
+
+
+
 
 
 }
