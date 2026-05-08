@@ -31,5 +31,23 @@ public class GastoControlador {
 
     }
 
+    // Control para modificar un gasto
+    @PutMapping("/{id}")
+    public ResponseEntity<?> controladorModificar(@PathVariable Integer id, @RequestBody Gasto datos) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_gasto(id, datos));
+    }
+
+    // Control para eliminar un gasto
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> controladorEliminar(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_gasto(id));
+    }
+
+    // Control para buscar un gasto por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<?> controladorBuscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_gasto_por_id(id));
+    }
+
 
 }

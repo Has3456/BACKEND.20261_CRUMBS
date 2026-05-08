@@ -37,5 +37,50 @@ public class CategoriaServicio {
         return categoriaRepositorio.findAll();
     }
 
+    // Función para modificar una categoría
+    public Categoria modificar_categoria(Integer id, Categoria datosNuevos) {
+        Optional<Categoria> categoria_que_busco = categoriaRepositorio.findById(id);
+
+        if (categoria_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Categoría no encontrada"
+            );
+        } else {
+            Categoria categoria_encontrada = categoria_que_busco.get();
+            categoria_encontrada.setNombre(datosNuevos.getNombre());
+            return categoriaRepositorio.save(categoria_encontrada);
+        }
+    }
+
+    // Función para eliminar una categoría
+    public boolean eliminar_categoria(Integer id) {
+        Optional<Categoria> categoria_que_busco = categoriaRepositorio.findById(id);
+
+        if (categoria_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Categoría no encontrada"
+            );
+        } else {
+            categoriaRepositorio.deleteById(id);
+            return true;
+        }
+    }
+
+    // Función para buscar una categoría por id
+    public Categoria buscar_categoria_por_id(Integer id) {
+        Optional<Categoria> categoria_que_busco = categoriaRepositorio.findById(id);
+
+        if (categoria_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Categoría no encontrada"
+            );
+        } else {
+            return categoria_que_busco.get();
+        }
+    }
+
     
 }

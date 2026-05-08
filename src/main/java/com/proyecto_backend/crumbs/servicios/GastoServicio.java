@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Gasto;
 import com.proyecto_backend.crumbs.repositorios.IGastoRepositorio;
+import java.util.Optional;
+import com.proyecto_backend.crumbs.modelos.Categoria;
+import com.proyecto_backend.crumbs.modelos.Comercio;
+
 
 @Service
 public class GastoServicio {
@@ -37,4 +41,52 @@ public class GastoServicio {
         return repositorio.findAll();
     }
     
+
+    // Funcion para modificar un gasto
+    public Gasto modificar_gasto(Integer id, Gasto datosNuevos) {
+        Optional<Gasto> gasto_que_busco = repositorio.findById(id);
+
+        if (gasto_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Gasto no encontrado"
+            );
+        } else {
+            Gasto gasto_encontrado = gasto_que_busco.get();
+
+            gasto_encontrado.setValor(datosNuevos.getValor());
+            gasto_encontrado.setDescripcion(datosNuevos.getDescripcion());
+
+            return repositorio.save(gasto_encontrado);
+        }
+    }
+
+    // Funcion para eliminar un gasto
+    public boolean eliminar_gasto(Integer id) {
+        Optional<Gasto> gasto_que_busco = repositorio.findById(id);
+
+        if (gasto_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Gasto no encontrado"
+            );
+        } else {
+            repositorio.deleteById(id);
+            return true;
+        }
+      }
+
+    // Funcion para buscar un gasto por id
+    public Gasto buscar_gasto_por_id(Integer id) {
+        Optional<Gasto> gasto_que_busco = repositorio.findById(id);
+
+        if (gasto_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Gasto no encontrado"
+            );
+        } else {
+            return gasto_que_busco.get();
+        }
+    }
 }
