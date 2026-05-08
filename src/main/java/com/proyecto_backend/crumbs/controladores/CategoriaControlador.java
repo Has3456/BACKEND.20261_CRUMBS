@@ -31,4 +31,23 @@ public class CategoriaControlador {
     }
 
 
+    // Control para modificar una categoria
+    @PutMapping("/{id}")
+    public ResponseEntity<?> controladorModificar(@PathVariable Integer id, @RequestBody Categoria datos) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_categoria(id, datos));
+    }
+
+    // Control para eliminar una categoria
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> controladorEliminar(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_categoria(id));
+    }
+
+    // Control para buscar una categoria por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<?> controladorBuscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_categoria_por_id(id));
+    }
+
+    
 }

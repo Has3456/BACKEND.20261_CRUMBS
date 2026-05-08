@@ -30,6 +30,24 @@ public class ComercioControlador {
             );
     
         }
+
+    // Control para modificar un comercio
+    @PutMapping("/{id}")
+    public ResponseEntity<?> controladorModificar(@PathVariable Integer id, @RequestBody Comercio datos) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_comercio(id, datos));
+    }
+
+    // Control para eliminar un comercio
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> controladorEliminar(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_comercio(id));
+    }
+
+    // Control para buscar un comercio por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<?> controladorBuscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_comercio_por_id(id));
+    }
     
 
     

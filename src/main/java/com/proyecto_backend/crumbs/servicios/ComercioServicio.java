@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Comercio;
 import com.proyecto_backend.crumbs.repositorios.IComercioRepositorio;
+import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class ComercioServicio {
@@ -37,6 +40,51 @@ public class ComercioServicio {
         return repositorio.findAll();
     }
 
-    
 
+// Función para modificar un comercio
+    public Comercio modificar_comercio(Integer id, Comercio datosNuevos) {
+        Optional<Comercio> comercio_que_busco = repositorio.findById(id);
+
+        if (comercio_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Comercio no encontrado"
+            );
+        } else {
+            Comercio comercio_encontrado = comercio_que_busco.get();
+            comercio_encontrado.setNombre(datosNuevos.getNombre());
+            return repositorio.save(comercio_encontrado);
+        }
+    }
+
+
+    // Función para eliminar un comercio
+    public boolean eliminar_comercio(Integer id) {
+        Optional<Comercio> comercio_que_busco = repositorio.findById(id);
+
+        if (comercio_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Comercio no encontrado"
+            );
+        } else {
+            repositorio.deleteById(id);
+            return true;
+        }
+    }
+
+
+    // Función para buscar un comercio por id
+    public Comercio buscar_comercio_por_id(Integer id) {
+        Optional<Comercio> comercio_que_busco = repositorio.findById(id);
+
+        if (comercio_que_busco.isEmpty()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Comercio no encontrado"
+            );
+        } else {
+            return comercio_que_busco.get();
+        }
+    }
 }
