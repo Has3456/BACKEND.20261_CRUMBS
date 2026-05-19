@@ -8,8 +8,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Comercio;
 import com.proyecto_backend.crumbs.repositorios.IComercioRepositorio;
 import java.util.Optional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Service
 public class ComercioServicio {

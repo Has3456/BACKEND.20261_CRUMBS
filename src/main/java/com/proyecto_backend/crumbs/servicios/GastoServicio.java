@@ -8,8 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Gasto;
 import com.proyecto_backend.crumbs.repositorios.IGastoRepositorio;
 import java.util.Optional;
-import com.proyecto_backend.crumbs.modelos.Categoria;
-import com.proyecto_backend.crumbs.modelos.Comercio;
 
 
 @Service

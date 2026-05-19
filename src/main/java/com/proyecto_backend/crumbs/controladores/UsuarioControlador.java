@@ -9,6 +9,13 @@ import org.springframework.http.HttpStatus;
 
 import com.proyecto_backend.crumbs.modelos.Usuario;
 import com.proyecto_backend.crumbs.servicios.UsuarioServicio;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController     
 
 
 public class UsuarioControlador {
@@ -37,22 +44,22 @@ public class UsuarioControlador {
     }
     ///////////////////////////
     //control para modificar
-       @putMapping ("/{id}")
-        public ResponseEntity<?>controladorModificar(@pathVariavle integer id, @RequestBody Usuario datos){
+       @PutMapping ("/{id}")
+        public ResponseEntity<?>controladorModificar(@PathVariable Integer id, @RequestBody Usuario datos){
             return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_usuario(id, datos));
         }  
 
      ////////////////////
       //control para eliminar
        @DeleteMapping("/{id}")
-        public ResponseEntity<?>controladorEliminar(@pathVariavle integer id){
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_usuario());
+        public ResponseEntity<?>controladorEliminar(@PathVariable Integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_usuario(id));
         }   
 
       ////////////////////////////////   
        @GetMapping ("/{id}")
-        public ResponseEntity<?>controladorBuscarPorId(@pathVariavle integer id){
-            return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_usuario(id));
+        public ResponseEntity<?>controladorBuscarPorId(@PathVariable Integer id){
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_usuario_por_id(id));
         }
         
 

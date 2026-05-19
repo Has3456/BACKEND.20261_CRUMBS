@@ -14,43 +14,36 @@ import java.util.List;
 @Table(name = "comercio")
 public class Comercio {
 
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Integer id;
+
     private String nit;
     private String nombre;
     private String actividad;
     private String contacto;
 
-    private String segmentoMercado; // Indica a qué tipo de negocio pertenece el comercio 
-    //  // (ej: cafetería, supermercado, streaming). 
-    // Permite identificar en qué sectores se gasta más dinero.
+    private String segmentoMercado;
 
-    private String canalVenta;// Indica si la compra fue en tienda física o por internet.
-    // Ayuda a analizar dónde ocurren más gastos.
+    private String canalVenta;
 
-    private Boolean fidelizacionActiva; // Indica si el comercio tiene programa de puntos o membresía.
-    // Permite analizar si estos incentivos influyen en gastar más seguido.
+    private Boolean fidelizacionActiva;
 
-    private Integer calificacionConfianza; // Representa qué tan satisfecho está el usuario con el comercio.
-    // Ayuda a saber si vale la pena lo que se está pagando.
+    private Integer calificacionConfianza;
 
-    private Integer frecuenciaRecurrencia;  // Mide qué tan frecuente compra el usuario en este lugar.
-    // Permite detectar comercios donde se gasta constantemente.
+    private Integer frecuenciaRecurrencia;
 
+    // Constructores
 
-    //Constructores
-
-    // Constructor vacío necesario 
+    // Constructor vacío necesario
     public Comercio() {
     }
 
     // Constructor con parámetros
     public Comercio(Integer id, String nit, String nombre, String actividad, String contacto,
-            String segmentoMercado, String canalVenta, Boolean fidelizacionActiva, Integer calificacionConfianza,
-            Integer frecuenciaRecurrencia) {
+            String segmentoMercado, String canalVenta, Boolean fidelizacionActiva,
+            Integer calificacionConfianza, Integer frecuenciaRecurrencia) {
+
         this.id = id;
         this.nit = nit;
         this.nombre = nombre;
@@ -145,11 +138,12 @@ public class Comercio {
         this.frecuenciaRecurrencia = frecuenciaRecurrencia;
     }
 
-
     // Relaciones con otras entidades
-@ManyToOne 
-@JoinColumn(name = "creador_id") private Usuario creador; 
-@OneToMany(mappedBy = "categoria") private List<Gasto> gastos;
 
+    @ManyToOne
+    @JoinColumn(name = "creador_id")
+    private Usuario creador;
 
+    @OneToMany(mappedBy = "comercio")
+    private List<Gasto> gastos;
 }
