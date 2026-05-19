@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Categoria;
 import com.proyecto_backend.crumbs.repositorios.ICategoriaRepositorio;
+import java.util.Optional;
+
 
 @Service
 public class CategoriaServicio {

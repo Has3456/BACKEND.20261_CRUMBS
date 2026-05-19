@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.proyecto_backend.crumbs.modelos.MedioPago;
 import com.proyecto_backend.crumbs.repositorios.IMedioPagoRepositorio;
+import java.util.Optional;
 
 @Service
 public class MedioPagoServicio {
@@ -50,8 +51,8 @@ public class MedioPagoServicio {
 
             MedioPago medio_pago_encontrado=medio_pago_que_busco.get();
             //modifiquemos datos
-            medio_pago_encontrado.setNombres(datosNuevos.getNombres());
-            medio_pago_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
+            medio_pago_encontrado.setJustificacion(datosNuevos.getJustificacion());
+            medio_pago_encontrado.setNombre(datosNuevos.getNombre());
             return repositorio.save(medio_pago_encontrado);
            
         }
