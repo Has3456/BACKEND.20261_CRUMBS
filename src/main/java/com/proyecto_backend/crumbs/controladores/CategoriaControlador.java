@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto_backend.crumbs.servicios.CategoriaServicio;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
 @RequestMapping("/api/crumbs/categorias")
+
 public class CategoriaControlador  {
 
     @Autowired
