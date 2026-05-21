@@ -34,7 +34,7 @@ public class UsuarioServicio {
         }
 
         //valdiar documento tenga al menos 6 caracteres
-        if(datosUsuario.getDocumento().length()<6){
+        if(datosUsuario.getDocumento()==null || datosUsuario.getDocumento().length()<6){
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST,
                 "Apreciado usuario, el documento debe tener mas de 6 caracteres"
@@ -71,7 +71,17 @@ public class UsuarioServicio {
             Usuario usuario_encontrado=usuario_que_busco.get();
             //modifiquemos datos
             usuario_encontrado.setNombres(datosNuevos.getNombres());
+            usuario_encontrado.setEmail(datosNuevos.getEmail());
             usuario_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
+            usuario_encontrado.setDocumento(datosNuevos.getDocumento());
+            usuario_encontrado.setEdad(datosNuevos.getEdad());
+            usuario_encontrado.setOcupacionPrincipal(datosNuevos.getOcupacionPrincipal());
+            usuario_encontrado.setNivelSocioeconomico(datosNuevos.getNivelSocioeconomico());
+            usuario_encontrado.setRangoIngresosMensuales(datosNuevos.getRangoIngresosMensuales());
+            usuario_encontrado.setUbicacionGeografica(datosNuevos.getUbicacionGeografica());
+            usuario_encontrado.setGenero(datosNuevos.getGenero());
+            usuario_encontrado.setContraseña(datosNuevos.getContraseña());
+            
             return repositorio.save(usuario_encontrado);
            
         }
@@ -79,7 +89,7 @@ public class UsuarioServicio {
     }
 
     ////////////////////////////////////////////
-      //funcion para eliminar un usuario
+     //funcion para eliminar un usuario
     public boolean eliminar_usuario(Integer id){
 
         Optional<Usuario> usuario_que_busco=repositorio.findById(id);
@@ -113,9 +123,5 @@ public class UsuarioServicio {
         }
 
     }
-
-
-
-
 
 }

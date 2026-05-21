@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
 @RequestMapping("/api/crumbs/comercios")
@@ -21,42 +23,32 @@ public class ComercioControlador {
     @Autowired
     ComercioServicio servicio;
 
-    //por cada servicio programo un metodo
-    //para recibir  y enviar  respuesta  al cliente
-
-    //funcion controladora apara el servicio de guardar comercio
-    public ResponseEntity<?>controladorGuardar(@RequestBody  Comercio datos ){
+    // AÑADIDO: @PostMapping con usuarioId
+    @PostMapping("/usuario/{usuarioId}")
+    public ResponseEntity<?> controladorGuardar(@PathVariable Integer usuarioId, @RequestBody Comercio datos) {
         return ResponseEntity.status(HttpStatus.OK).body(
-            servicio.guardar_comercio(datos)
+            servicio.guardar_comercio(usuarioId, datos)
         );
     }
 
-    // funcion controladora  para el servicio  de listar todos los comercios
-    public ResponseEntity<?> controladorListar(){
-            return ResponseEntity.status(HttpStatus.OK).body(
-                servicio.listar_comercios()
-            );
-    
-        }
+    // AÑADIDO: @GetMapping para listar por usuario
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<?> controladorListarPorUsuario(@PathVariable Integer usuarioId) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+            servicio.listar_comercios_por_usuario(usuarioId)
+        );
+    }
 
-    // Control para modificar un comercio
+    
+    // Modificar, Eliminar y Buscar por ID siguen igual, 
+    // asegúrate de tener sus anotaciones:
     @PutMapping("/{id}")
     public ResponseEntity<?> controladorModificar(@PathVariable Integer id, @RequestBody Comercio datos) {
         return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_comercio(id, datos));
     }
 
-    // Control para eliminar un comercio
     @DeleteMapping("/{id}")
     public ResponseEntity<?> controladorEliminar(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_comercio(id));
     }
-
-    // Control para buscar un comercio por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<?> controladorBuscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_comercio_por_id(id));
-    }
-    
-
-    
 }

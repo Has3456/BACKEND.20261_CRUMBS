@@ -138,11 +138,22 @@ public class Comercio {
         this.frecuenciaRecurrencia = frecuenciaRecurrencia;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+
+    
+
     // Relaciones con otras entidades
 
     @ManyToOne
     @JoinColumn(name = "creador_id")
-    private Usuario creador;
+    private Usuario usuario;
 
     @OneToMany(mappedBy = "comercio")
     private List<Gasto> gastos;

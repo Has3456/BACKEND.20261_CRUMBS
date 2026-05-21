@@ -14,11 +14,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "gasto")
-
 public class Gasto {
 
-    // Atributos
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,46 +24,41 @@ public class Gasto {
     private LocalDate fecha;
     private Double valor;
     private String imagen;
+    private String tipoNecesidad;
+    private String frecuenciaGasto;
+    private String lugarConsumo;
+    private String medioVerificacion;
+    private String gradoNecesidad;
 
-    private String tipoNecesidad;// Permite clasificar el gasto según su importancia.
-    // Ayuda a diferenciar lo que es obligatorio de lo que es un gusto o impulso.
+    // Relaciones (Mantenidas arriba para mejor orden)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-    private String frecuenciaGasto; // Indica cada cuánto se repite el gasto.
-   // Sirve para identificar gastos pequeños que, al repetirse, pueden sumar mucho dinero.
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-    private String lugarConsumo;  // Registra el lugar donde se realizó el gasto.
-    // Ayuda a identificar en qué sitios se gasta más dinero.
+    @ManyToOne
+    @JoinColumn(name = "medio_pago_id")
+    private MedioPago medioPago; 
 
-    private String medioVerficacion; // Indica si el gasto tiene comprobante (factura o recibo).
-   // Permite llevar un mejor control y respaldo de la información.
+    @ManyToOne
+    @JoinColumn(name = "comercio_id")
+    private Comercio comercio;
 
-    private  String gradoNecesidad; // Representa qué tan necesario era el gasto en una escala del 1 al 5.
-    // Ayuda a comparar si realmente valió la pena lo que se pagó
+    // Constructores
+    public Gasto() {}
 
-
-    
-    //Constructores
-
-    // Constructor vacío necesario
-    public Gasto() {
-    }
-
-
-
-    // Constructor con parámetros
-    public Gasto(Integer id, String descripcion, LocalDate fecha, Double valor, String imagen, String tipoNecesidad,
-            String frecuenciaGasto, String lugarConsumo, String medioVerficacion, String gradoNecesidad) {
+    // Constructor incluyendo las relaciones
+    public Gasto(Integer id, String descripcion, Double valor, Usuario usuario, Categoria categoria) {
         this.id = id;
         this.descripcion = descripcion;
-        this.fecha = fecha;
         this.valor = valor;
-        this.imagen = imagen;
-        this.tipoNecesidad = tipoNecesidad;
-        this.frecuenciaGasto = frecuenciaGasto;
-        this.lugarConsumo = lugarConsumo;
-        this.medioVerficacion = medioVerficacion;
-        this.gradoNecesidad = gradoNecesidad;
+        this.usuario = usuario;
+        this.categoria = categoria;
     }
+
 
 
     // Getters y Setters
@@ -104,6 +96,10 @@ public class Gasto {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+
+
+
+   
 
 
 
@@ -167,14 +163,14 @@ public class Gasto {
 
 
 
-    public String getMedioVerficacion() {
-        return medioVerficacion;
+    public String getMedioVerificacion() {
+        return medioVerificacion;
     }
 
 
 
-    public void setMedioVerficacion(String medioVerficacion) {
-        this.medioVerficacion = medioVerficacion;
+    public void setMedioVerificacion(String medioVerificacion) {
+        this.medioVerificacion = medioVerificacion;
     }
 
 
@@ -189,27 +185,39 @@ public class Gasto {
         this.gradoNecesidad = gradoNecesidad;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }   
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public MedioPago getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(MedioPago medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public Comercio getComercio() {
+        return comercio;
+    }
+
+    public void setComercio(Comercio comercio) {
+        this.comercio = comercio;
+    }
 
 
-    // Relaciones con otras entidades
-    
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-
-    @ManyToOne
-    @JoinColumn(name = "medio_pago_id")
-    private MedioPago medioPago; 
-
-    @ManyToOne
-    @JoinColumn(name = "comercio_id")
-    private Comercio comercio;
-
-    
 
 
 

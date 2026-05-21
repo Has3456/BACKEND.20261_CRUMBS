@@ -9,9 +9,12 @@ import com.proyecto_backend.crumbs.modelos.Gasto;
 import com.proyecto_backend.crumbs.servicios.GastoServicio;     
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.proyecto_backend.crumbs.repositorios.IGastoRepositorio;
+
 
 @RestController
 @RequestMapping("/api/crumbs/gastos")
@@ -19,23 +22,16 @@ public class GastoControlador {
 
     @Autowired
     GastoServicio servicio;
+    @Autowired
+    IGastoRepositorio gastoRepositorio;
+    
 
-    //por cada servicio programo un metodo
-    //para recibir  y enviar  respuesta  al cliente
-
-    //funcion controladora apara el servicio de guardar gasto
-    public ResponseEntity<?>controladorGuardar(@RequestBody  Gasto datos ){
+ 
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<?> controladorListarPorUsuario(@PathVariable Integer usuarioId) {
         return ResponseEntity.status(HttpStatus.OK).body(
-            servicio.guardar_gasto(datos)
+            servicio.listar_gastos_por_usuario(usuarioId)
         );
-    }
-
-    // funcion controladora  para el servicio  de listar todos los gastos
-    public ResponseEntity<?> controladorListar(){
-         return ResponseEntity.status(HttpStatus.OK).body(
-            servicio.listar_gastos()
-         );
-
     }
 
     // Control para modificar un gasto
@@ -44,17 +40,20 @@ public class GastoControlador {
         return ResponseEntity.status(HttpStatus.OK).body(servicio.modificar_gasto(id, datos));
     }
 
+       @PostMapping("/usuario/{usuarioId}")
+     public ResponseEntity<?> controladorGuardar(@PathVariable Integer usuarioId, @RequestBody Gasto datos) {
+    // Le pasamos al servicio el ID del usuario y el objeto completo
+     return ResponseEntity.status(HttpStatus.OK).body(
+        servicio.guardar_gasto(usuarioId, datos)
+    );
+}
+
     // Control para eliminar un gasto
     @DeleteMapping("/{id}")
     public ResponseEntity<?> controladorEliminar(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(servicio.eliminar_gasto(id));
     }
 
-    // Control para buscar un gasto por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<?> controladorBuscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.buscar_gasto_por_id(id));
-    }
-
+    
 
 }
