@@ -6,8 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;  
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
 import java.util.List;
 
 
@@ -154,14 +152,10 @@ public class MedioPago {
         this.limiteOperativo = limiteOperativo;
     }
 
-// ==========================================
-    // RELACIONES CON OTRAS ENTIDADES
-    // ==========================================
-    
-    @ManyToOne // Muchos medios de pago pertenecen a un solo usuario
-    @JoinColumn(name = "usuario_id") // Nombre de la columna (llave foránea) en la BD
-    private Usuario usuario; // <-- ¡Este nombre ahora sí coincide con el mappedBy de Usuario!
+
+    // Relaciones con otras entidades
 
     @OneToMany(mappedBy = "medioPago") 
     private List<Gasto> gastos;
+    
 }
