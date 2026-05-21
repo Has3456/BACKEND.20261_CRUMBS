@@ -1,66 +1,53 @@
 package com.proyecto_backend.crumbs.modelos;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;  
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;  
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import java.util.List;
-
-
-import java.time.LocalDateTime; 
-
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "medio_pagos")
-
 public class MedioPago {
 
-
-    // Atributos
+    // --- Identificador ---
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
     private Integer id;
+    
+    // --- Atributos básicos ---
     private String nombre;
     private LocalDateTime fechaCreacion;
     private String responsable;
     private String justificacion;
+    private String naturalezaGasto;
+    private String comportamientoEsperado;
+    private String periodicidadSugerida;
+    private String claseConsumo;
+    private Double limiteOperativo;
 
-   
+    // --- Relaciones ---
+    
+    @ManyToOne 
+    @JoinColumn(name = "usuario_id") // Esta es la columna FK en la base de datos
+    private Usuario usuario; 
 
-    private String naturalezaGasto; 
-    // Indica si el gasto es fijo o variable.
-    // Ayuda a saber qué gastos son obligatorios y cuáles se pueden reducir si es necesario.
+    @OneToMany(mappedBy = "medioPago") 
+    private List<Gasto> gastos;
 
-    private String comportamientoEsperado; 
-    // Muestra la estrategia financiera del usuario.
-    // Permite saber si la persona busca ahorrar, controlar o gastar libremente.
-
-    private String periodicidadSugerida; 
-    // Indica cada cuánto sería recomendable hacer ese gasto.
-    // Sirve para alertar si el usuario está gastando más seguido de lo normal.
-
-    private String claseConsumo; 
-    // Diferencia si el gasto fue en un producto físico o en un servicio.
-    // Ayuda a identificar gastos como suscripciones que pasan desapercibidas.
-
-    private Double limiteOperativo; 
-    // Representa el monto máximo que se debería gastar.
-    // Sirve como referencia para no exceder el presupuesto mensual.
-
-
-    // Constructor vacío
+    // --- Constructor vacío (Requerido por JPA) ---
     public MedioPago() {
     }
 
-    // Constructor con todos los campos
+    // --- Constructor con parámetros ---
     public MedioPago(Integer id, String nombre, LocalDateTime fechaCreacion, String responsable, 
                       String justificacion, String naturalezaGasto, String comportamientoEsperado, 
-                      String periodicidadSugerida, String claseConsumo, Double limiteOperativo) {
+                      String periodicidadSugerida, String claseConsumo, Double limiteOperativo, Usuario usuario) {
         this.id = id;
         this.nombre = nombre;
         this.fechaCreacion = fechaCreacion;
@@ -71,9 +58,11 @@ public class MedioPago {
         this.periodicidadSugerida = periodicidadSugerida;
         this.claseConsumo = claseConsumo;
         this.limiteOperativo = limiteOperativo;
+        this.usuario = usuario;
     }
 
-    // Getters y Setters
+    // --- Getters y Setters ---
+
     public Integer getId() {
         return id;
     }
@@ -154,14 +143,19 @@ public class MedioPago {
         this.limiteOperativo = limiteOperativo;
     }
 
-// ==========================================
-    // RELACIONES CON OTRAS ENTIDADES
-    // ==========================================
-    
-    @ManyToOne // Muchos medios de pago pertenecen a un solo usuario
-    @JoinColumn(name = "usuario_id") // Nombre de la columna (llave foránea) en la BD
-    private Usuario usuario; // <-- ¡Este nombre ahora sí coincide con el mappedBy de Usuario!
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    @OneToMany(mappedBy = "medioPago") 
-    private List<Gasto> gastos;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Gasto> getGastos() {
+        return gastos;
+    }
+
+    public void setGastos(List<Gasto> gastos) {
+        this.gastos = gastos;
+    }
 }

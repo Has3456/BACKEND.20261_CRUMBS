@@ -126,6 +126,10 @@ public class Categoria {
         return periodicidadSugerida;
     }
 
+    public void setUsuario(Usuario usuario) {
+            this.usuario = usuario;
+     }
+
     public void setPeriodicidadSugerida(String periodicidadSugerida) {
         this.periodicidadSugerida = periodicidadSugerida;
     }
@@ -146,6 +150,11 @@ public class Categoria {
         this.limiteOperativo = limiteOperativo;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+      
 
     // Relaciones con otras entidades
 @OneToMany(mappedBy = "categoria")
@@ -153,4 +162,5 @@ private List<Gasto> gastos;
 @ManyToOne
 @JoinColumn(name = "usuario_id")
 private Usuario usuario;
+
 }

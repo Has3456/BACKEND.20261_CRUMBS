@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Gasto;
+import com.proyecto_backend.crumbs.modelos.Usuario;
 import com.proyecto_backend.crumbs.repositorios.IGastoRepositorio;
+import com.proyecto_backend.crumbs.repositorios.IUsuarioRepositorio;
 import java.util.Optional;
 
 
@@ -15,25 +17,17 @@ public class GastoServicio {
 
     @Autowired
     private IGastoRepositorio repositorio;
+  
+    @Autowired
+    private IUsuarioRepositorio usuarioRepositorio;
+    
 
-    public Gasto guardar_gasto(Gasto datosGasto){
-        //validar los campos del modelo segun la LN
 
-        //validar que el gasto tenga un valor mayor a 0
-        if(datosGasto.getValor()<=0){
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Apreciado usuario, el valor del gasto debe ser mayor a 0"
-            );
-
-        }
-
-        //Si paso todas las validaciones
-        //intentare activar el guardado de los datos
-        return repositorio.save(datosGasto);
-
-    }
-
+    public Gasto guardar_gasto(Integer usuarioId, Gasto datosGasto) {
+    Usuario usuario = usuarioRepositorio.findById(usuarioId).orElse(null);
+    datosGasto.setUsuario(usuario);
+    return repositorio.save(datosGasto);
+}
     //funcion para listar todos los gastos
     public List<Gasto> listar_gastos(){
         return repositorio.findAll();
@@ -87,4 +81,8 @@ public class GastoServicio {
             return gasto_que_busco.get();
         }
     }
+
+    public List<Gasto> listar_gastos_por_usuario(Integer usuarioId) {
+    return repositorio.findByUsuarioId(usuarioId);
+}
 }

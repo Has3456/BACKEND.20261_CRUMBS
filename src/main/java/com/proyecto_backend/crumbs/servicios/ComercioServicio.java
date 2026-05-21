@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Comercio;
+import com.proyecto_backend.crumbs.modelos.Usuario;
 import com.proyecto_backend.crumbs.repositorios.IComercioRepositorio;
 import java.util.Optional;
 
@@ -16,23 +17,27 @@ public class ComercioServicio {
     @Autowired
     private IComercioRepositorio repositorio;
 
-    public Comercio guardar_comercio(Comercio datosComercio){
-        //validar los campos del modelo segun la LN
-
-        //validar que el comercio me mande su nombre
-        if(datosComercio.getNombre()==null || datosComercio.getNombre().isEmpty() || datosComercio.getNombre().isBlank()){
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Apreciado usuario, el nombre del comercio es obligatorio"
-            );
-
-        }
-
-        //Si paso todas las validaciones
-        //intentare activar el guardado de los datos
-        return repositorio.save(datosComercio);
-
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+ 
+    
+    public Comercio guardar_comercio(Integer usuarioId, Comercio datosComercio) {
+  
+    if(datosComercio.getNombre()==null || datosComercio.getNombre().isEmpty() || datosComercio.getNombre().isBlank()){
+        throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "Apreciado usuario, el nombre del comercio es obligatorio"
+        );
     }
+
+    Usuario usuario = usuarioServicio.buscar_usuario_por_id(usuarioId);
+
+    datosComercio.setUsuario(usuario);
+
+  
+    return repositorio.save(datosComercio);
+}
+
 
     //funcion para listar todos los comercios
     public List<Comercio> listar_comercios(){
@@ -71,6 +76,11 @@ public class ComercioServicio {
             return true;
         }
     }
+
+
+    public List<Comercio> listar_comercios_por_usuario(Integer usuarioId) {
+    return repositorio.findByUsuarioId(usuarioId);
+}
 
 
     // Función para buscar un comercio por id
