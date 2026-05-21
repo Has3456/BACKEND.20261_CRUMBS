@@ -6,7 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.proyecto_backend.crumbs.modelos.Categoria;
+import com.proyecto_backend.crumbs.modelos.Usuario;
 import com.proyecto_backend.crumbs.repositorios.ICategoriaRepositorio;
+import com.proyecto_backend.crumbs.repositorios.IUsuarioRepositorio;
+
+
+
+
 import java.util.Optional;
 
 
@@ -16,24 +22,12 @@ public class CategoriaServicio {
     @Autowired
     private ICategoriaRepositorio categoriaRepositorio;
 
-    public Categoria guardar_categoria(Categoria datosCategoria){
-        //validar los campos del modelo segun la LN
+    @Autowired
+    private IUsuarioRepositorio usuarioRepositorio;
 
-        //validar que el comercio me mande su nombre
-        if(datosCategoria.getNombre()==null || datosCategoria.getNombre().isEmpty() || datosCategoria.getNombre().isBlank()){
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Apreciado usuario, el nombre de la categoria es obligatorio"
-            );
 
-        }
 
-        //Si paso todas las validaciones
-        //intentare activar el guardado de los datos
-        return categoriaRepositorio.save(datosCategoria);
-
-    }
-
+ 
     //funcion para listar todas las categorias
     public List<Categoria> listar_categorias(){
         return categoriaRepositorio.findAll();
@@ -55,6 +49,10 @@ public class CategoriaServicio {
         }
     }
 
+
+
+
+
     // Función para eliminar una categoría
     public boolean eliminar_categoria(Integer id) {
         Optional<Categoria> categoria_que_busco = categoriaRepositorio.findById(id);
@@ -70,6 +68,25 @@ public class CategoriaServicio {
         }
     }
 
+
+
+
+        public Categoria guardar_categoria(Integer usuarioId, Categoria datosCategoria) {
+    // 1. Validar nombre
+    if(datosCategoria.getNombre()==null || datosCategoria.getNombre().isEmpty()){
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nombre obligatorio");
+    }
+
+    Usuario usuario = usuarioRepositorio.findById(usuarioId)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+    datosCategoria.setUsuario(usuario);
+    return categoriaRepositorio.save(datosCategoria);
+}
+
+
+
+
     // Función para buscar una categoría por id
     public Categoria buscar_categoria_por_id(Integer id) {
         Optional<Categoria> categoria_que_busco = categoriaRepositorio.findById(id);
@@ -83,6 +100,12 @@ public class CategoriaServicio {
             return categoria_que_busco.get();
         }
     }
+
+ 
+    public List<Categoria> listar_categorias_por_usuario(Integer usuarioId) {
+    // Esto hace la consulta SQL "WHERE usuario_id = ?" automáticamente
+    return categoriaRepositorio.findByUsuarioId(usuarioId);
+}
 
     
 }

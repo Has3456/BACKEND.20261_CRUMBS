@@ -18,6 +18,8 @@ public class Usuario {
 
     private Integer id;
     private String nombres;
+    private String email;
+    private String contraseña;
     private String tipoDocumento;
     private String documento;
     private Integer edad;
@@ -41,6 +43,7 @@ public class Usuario {
     private String genero; 
     // Permite comparar hábitos de gasto entre personas.
 
+    
 
 
     // Constructor vacío
@@ -50,7 +53,7 @@ public class Usuario {
     // Constructor con todos los atributos
     public Usuario(Integer id, String nombres, String tipoDocumento, String documento,
                    Integer edad, String ocupacionPrincipal, String nivelSocioeconomico,
-                   String rangoIngresosMensuales, String ubicacionGeografica, String genero) {
+                   String rangoIngresosMensuales, String ubicacionGeografica, String genero, String email, String contraseña) {
         this.id = id;
         this.nombres = nombres;
         this.tipoDocumento = tipoDocumento;
@@ -61,6 +64,8 @@ public class Usuario {
         this.rangoIngresosMensuales = rangoIngresosMensuales;
         this.ubicacionGeografica = ubicacionGeografica;
         this.genero = genero;
+        this.email = email;
+        this.contraseña = contraseña;
     }
 
 
@@ -107,8 +112,17 @@ public class Usuario {
         return genero;
     }
 
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
 
 
+  
     // Setters
     public void setId(Integer id) {
         this.id = id;
@@ -149,6 +163,16 @@ public class Usuario {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;   
+    }
+
+
 
 
         // --- RELACIONES @OneToMany ---
