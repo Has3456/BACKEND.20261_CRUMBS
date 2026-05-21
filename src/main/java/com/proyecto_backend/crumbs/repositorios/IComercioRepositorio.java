@@ -4,13 +4,12 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.proyecto_backend.crumbs.modelos.Comercio;
-import java.util.List;
 
 
 
 @Repository
 
 public interface IComercioRepositorio extends JpaRepository<Comercio, Integer> {
- List<Comercio> findByUsuarioId(Integer usuarioId);
+
 
 }

@@ -10,11 +10,11 @@ import com.proyecto_backend.crumbs.modelos.Usuario;
 import com.proyecto_backend.crumbs.repositorios.IUsuarioRepositorio;
 import java.util.Optional;
 
-
 @Service
 public class UsuarioServicio {
 
-      @Autowired
+    //Inyectando la dependencia al repositorio Usuario
+    @Autowired
     private IUsuarioRepositorio repositorio;
 
     //Se programa una funcion por cada servicio que voy a ofrecer
@@ -34,7 +34,7 @@ public class UsuarioServicio {
         }
 
         //valdiar documento tenga al menos 6 caracteres
-        if(datosUsuario.getDocumento()==null || datosUsuario.getDocumento().length()<6){
+        if(datosUsuario.getDocumento().length()<6){
             throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST,
                 "Apreciado usuario, el documento debe tener mas de 6 caracteres"
@@ -54,8 +54,8 @@ public class UsuarioServicio {
         return repositorio.findAll();
     }
 
-    //////////////////////////////////////////////
-     //funcion para modificar un usuario
+
+    //funcion para modificar un usuario
     public Usuario modificar_usuario(Integer id, Usuario datosNuevos){
 
 
@@ -71,25 +71,16 @@ public class UsuarioServicio {
             Usuario usuario_encontrado=usuario_que_busco.get();
             //modifiquemos datos
             usuario_encontrado.setNombres(datosNuevos.getNombres());
-            usuario_encontrado.setEmail(datosNuevos.getEmail());
             usuario_encontrado.setTipoDocumento(datosNuevos.getTipoDocumento());
-            usuario_encontrado.setDocumento(datosNuevos.getDocumento());
-            usuario_encontrado.setEdad(datosNuevos.getEdad());
-            usuario_encontrado.setOcupacionPrincipal(datosNuevos.getOcupacionPrincipal());
-            usuario_encontrado.setNivelSocioeconomico(datosNuevos.getNivelSocioeconomico());
-            usuario_encontrado.setRangoIngresosMensuales(datosNuevos.getRangoIngresosMensuales());
-            usuario_encontrado.setUbicacionGeografica(datosNuevos.getUbicacionGeografica());
-            usuario_encontrado.setGenero(datosNuevos.getGenero());
-            usuario_encontrado.setContraseña(datosNuevos.getContraseña());
-            
             return repositorio.save(usuario_encontrado);
            
         }
 
     }
 
-    ////////////////////////////////////////////
-     //funcion para eliminar un usuario
+
+
+    //funcion para eliminar un usuario
     public boolean eliminar_usuario(Integer id){
 
         Optional<Usuario> usuario_que_busco=repositorio.findById(id);
@@ -107,8 +98,8 @@ public class UsuarioServicio {
 
     }
 
-      ////////////////////////////////////////////
-         //funcion para buscar un usuario por id
+
+    //funcion para buscar un usuario por id
     public Usuario buscar_usuario_por_id(Integer id){
 
         Optional<Usuario> usuario_que_busco=repositorio.findById(id);
@@ -123,5 +114,7 @@ public class UsuarioServicio {
         }
 
     }
+    
+
 
 }

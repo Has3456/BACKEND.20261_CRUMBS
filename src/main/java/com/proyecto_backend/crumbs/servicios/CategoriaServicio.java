@@ -101,11 +101,6 @@ public class CategoriaServicio {
         }
     }
 
- 
-    public List<Categoria> listar_categorias_por_usuario(Integer usuarioId) {
-    // Esto hace la consulta SQL "WHERE usuario_id = ?" automáticamente
-    return categoriaRepositorio.findByUsuarioId(usuarioId);
-}
 
     
 }
