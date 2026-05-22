@@ -3,11 +3,15 @@ package com.proyecto_backend.crumbs.modelos;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;  
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;  
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import java.util.List;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime; 
 
@@ -70,6 +74,18 @@ public class MedioPago {
         this.claseConsumo = claseConsumo;
         this.limiteOperativo = limiteOperativo;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties("mediosPago")
+    private Usuario usuario;
+
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
 
     // Getters y Setters
     public Integer getId() {
@@ -161,8 +177,9 @@ public class MedioPago {
     }
 
     public void setUsuario(Usuario usuario) {
-    
+    this.usuario = usuario;
     }
+
 
     // Relaciones con otras entidades
 
@@ -170,3 +187,4 @@ public class MedioPago {
     private List<Gasto> gastos;
     
 }
+

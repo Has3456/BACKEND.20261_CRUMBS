@@ -6,7 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
-import java.util.List;  
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;  
 
 @Entity
 @Table(name = "usuarios")
@@ -178,11 +180,15 @@ public class Usuario {
         // --- RELACIONES @OneToMany ---
     
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+
     private List<Gasto> gastos;
 
     @OneToMany(mappedBy = "usuario") 
+    @JsonIgnore
     private List<MedioPago> medioPago; 
 
     @OneToMany(mappedBy = "usuario") 
+    @JsonIgnore
     private List<Categoria> categoriasCreadas;
 }
