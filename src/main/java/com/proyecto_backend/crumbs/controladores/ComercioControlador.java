@@ -23,10 +23,12 @@ public class ComercioControlador {
     @Autowired
     ComercioServicio servicio;
 
+ 
     @PostMapping("/{usuarioId}")
-    public ResponseEntity<?> controaldorGuardar(@PathVariable Integer usuarioId, @RequestBody Comercio datos) {
-        return ResponseEntity.status(HttpStatus.OK).body(servicio.guardar_comercio(usuarioId, datos));
-    }
+        public ResponseEntity<?> controaldorGuardar(@PathVariable Integer usuarioId, @RequestBody Comercio datos) {
+            return ResponseEntity.status(HttpStatus.OK).body(servicio.guardar_comercio(usuarioId, datos));
+        }
+
 
     @GetMapping
     public ResponseEntity<?> controaldorListar() {

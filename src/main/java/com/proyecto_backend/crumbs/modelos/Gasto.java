@@ -3,8 +3,6 @@ package com.proyecto_backend.crumbs.modelos;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,7 +33,6 @@ public class Gasto {
     // Relaciones (Mantenidas arriba para mejor orden)
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne
