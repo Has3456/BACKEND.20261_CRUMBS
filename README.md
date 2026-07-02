@@ -1,41 +1,68 @@
-🚀 Crumbs: ¡Rastrea las migajas y salva tu fortuna! 🐜💸 ¡Hola! 👋 Bienvenido a Crumbs, la plataforma inteligente diseñada para ayudarte a identificar, entender y eliminar esos pequeños gastos diarios —las "migajas"— que, sin darte cuenta, se llevan una gran parte de tu presupuesto.
+Crumbs — Backend NT 2026-1
+Integrantes: Laura Patricia Torres Contreras, Habbleybdy Castrillon Calle
 
-¿Alguna vez te has preguntado a dónde se fue tu dinero al final del mes? 🧐 Seguramente se "escurrió" en cafés, suscripciones que no usas o antojos de paso. Crumbs nace para que no vuelvas a hacerte esa pregunta. ¡Es hora de que cada migaja cuente para tu futuro! ;)
+Descripción
+Backend REST desarrollado en Spring Boot 3.x / Java 17 para Crumbs, una plataforma de psicología financiera que ayuda a los usuarios a identificar y controlar sus "migajas" (micro-gastos) diarios. El sistema expone un API CRUD completo sobre 5 entidades relacionadas (usuarios, gastos, categorías, comercios y medios de pago), permitiendo registrar el perfil del usuario, sus gastos y clasificarlos según necesidad, frecuencia y comportamiento de consumo, con persistencia en base de datos H2 en memoria.
 
-🎯 ¿Qué hace a Crumbs diferente? No somos una simple libreta de notas digital. Crumbs es un ecosistema de Psicología Financiera. 🧠✨ Nuestra app analiza no solo cuánto gastas, sino el por qué y el dónde, ayudándote a identificar tus patrones de consumo impulsivo antes de que afecten tu bolsillo.
+Estructura del proyecto
+BACKEND.20261_CRUMBS-develop/
+│
+├── src/main/java/com/proyecto_backend/crumbs/
+│   ├── CrumbsApplication.java          # Punto de entrada de la app Spring Boot
+│   │
+│   ├── configuracion/
+│   │   └── Cors.java                   # Configuración CORS (acceso abierto desde frontend)
+│   │
+│   ├── controladores/                  # Capa REST (@RestController)
+│   │   ├── UsuarioControaldor.java
+│   │   ├── GastoControlador.java
+│   │   ├── CategoriaControlador.java
+│   │   ├── ComercioControlador.java
+│   │   └── MedioPagoControlador.java
+│   │
+│   ├── servicios/                      # Lógica de negocio
+│   │   ├── UsuarioServicio.java
+│   │   ├── GastoServicio.java
+│   │   ├── CategoriaServicio.java
+│   │   ├── ComercioServicio.java
+│   │   └── MedioPagoServicio.java
+│   │
+│   ├── repositorios/                   # Acceso a datos (Spring Data JPA)
+│   │   ├── IUsuarioRepositorio.java
+│   │   ├── IGastoRepositorio.java
+│   │   ├── ICategoriaRepositorio.java
+│   │   ├── IComercioRepositorio.java
+│   │   └── IMedioPagoRepositorio.java
+│   │
+│   └── modelos/                        # Entidades JPA
+│       ├── Usuario.java
+│       ├── Gasto.java
+│       ├── Categoria.java
+│       ├── Comercio.java
+│       └── MedioPago.java
+│
+├── src/main/resources/
+│   └── application.properties          # Configuración de BD H2 y JPA
+│
+├── data/                               # Archivos de la BD H2 (persistencia local)
+├── pom.xml                             # Dependencias Maven
+└── README.md
 
-🏗️ Lo que medimos por ti (Modelo 5+5) Para darte un reporte profesional, nuestra inteligencia cruza datos clave que otras apps ignoran para que ninguna migaja se pierda de vista:
+Modelo de datos (relaciones)
+EntidadDescripciónRelaciónUsuarioPerfil del usuario (ocupación, nivel socioeconómico, ingresos, ubicación, género)1 → N con Gasto, Categoria, MedioPagoGastoRegistro de cada gasto (valor, fecha, tipo de necesidad, grado de necesidad, frecuencia)N → 1 con Usuario, Categoria, MedioPago, ComercioCategoriaClasificación del gasto (naturaleza, comportamiento esperado, periodicidad, límite operativo)1 → N con GastoComercioTiendas/negocios donde se gasta (segmento, canal de venta, calificación de confianza)1 → N con GastoMedioPagoMedios de pago usados (efectivo, crédito, etc.), con su propio límite operativo1 → N con Gasto
 
-👤 Tu Perfil: Analizamos tu contexto (ingresos, ocupación, ubicación) para que las recomendaciones de ahorro sean realistas y personalizadas a tu estilo de vida.
+Endpoints expuestos
+RecursoBase URLOperacionesUsuarioshttp://localhost:8080/api/v1/usuariosGET, GET/{id}, POST, PUT/{id}, DELETE/{id}Gastoshttp://localhost:8080/api/v1/gastosGET, GET/{id}, POST/{usuarioId}, PUT/{id}, DELETE/{id}Categoríashttp://localhost:8080/api/v1/categoriasGET, GET/{id}, POST/{usuarioId}, PUT/{id}, DELETE/{id}Comercioshttp://localhost:8080/api/v1/comerciosGET, GET/{id}, POST/{usuarioId}, PUT/{id}, DELETE/{id}Medios de pagohttp://localhost:8080/api/v1/medios-pagoGET, GET/{id}, POST/{usuarioId}, PUT/{id}, DELETE/{id}
 
-🛒 Mapa de Comercios: Descubre cuáles son tus "zonas de peligro". Sabrás exactamente qué tiendas o apps son las que más tientan tu voluntad. 🛍️
+Cómo ejecutar
+1. Requisitos: Java 17 y Maven (o el wrapper incluido mvnw).
+2. Levantar la aplicación
+bash./mvnw spring-boot:run
+La aplicación corre por defecto en el puerto 8080.
+3. Consola de base de datos
+H2 Console habilitada en:
+http://localhost:8080/h2-console
+(JDBC URL: jdbc:h2:mem:crumbs_db, usuario sa, sin contraseña)
 
-📂 Inteligencia de Categorías: Clasificamos tus gastos por Naturaleza (¿Es un gasto fijo o una migaja evitable?) y por Comportamiento Sugerido.
-
-💳 Salud en Medios de Pago: Te mostramos si estás abusando del crédito o si el efectivo se te escapa de las manos sin dejar rastro. 💳
-
-💰 El Semáforo del Gasto: Evaluamos el Grado de Necesidad (del 1 al 5) de cada compra para que aprendas a diferenciar un deseo momentáneo de una necesidad real.
-
-🌟 ¿Cómo empezar a ahorrar hoy mismo? ¡No necesitas ser un experto en finanzas ni en sistemas! Crumbs ya está lista y es totalmente utilizable para que la pongas a prueba ahora mismo:
-
-Regístrate en segundos: Crea tu perfil y define tus metas de ahorro. 📝
-
-Sigue el rastro de tus "Crumbs": Cada vez que compres algo pequeño, regístralo. ¡Te sorprenderá ver cuánto sumas al final de la semana! ☕🍩
-
-Recibe Alertas Inteligentes: Nuestra app te avisará cuando esas pequeñas migajas estén a punto de formar una montaña que afecte tu presupuesto mensual. 🚨
-
-Analiza y Mejora: Revisa tus reportes y descubre cuánto dinero "recuperaste" simplemente siendo consciente de tus micro-gastos. ;)
-
-🛠️ Tecnología de Vanguardia (Bajo el capó) Aunque tú solo veas una interfaz amigable y sencilla, por detrás Crumbs corre sobre un motor de alto rendimiento diseñado para la precisión:
-
-Arquitectura Spring Boot 3.x: Para transacciones ultra rápidas y una experiencia fluida. 🍃
-
-Analítica en Tiempo Real: Procesamos tus hábitos para darte consejos justo en el momento en que más los necesitas.
-
-Seguridad Garantizada: Tus datos financieros son privados, están encriptados y protegidos con los mejores estándares actuales. 🛡️
-
-✨ ¡Únete a la comunidad Crumbs! Nuestra misión es transformar la educación financiera en algo divertido, intuitivo y, sobre todo, efectivo. Si estás listo para dejar de perder dinero en "migajas" y empezar a construir algo grande, ¡te esperamos dentro! 🚀✨
-
-"Cuidado con los gastos pequeños; una pequeña filtración hunde un gran barco." – Benjamín Franklin.
-
-Hecho con ❤️ para que tu bolsillo respire mejor.
+5. CORS
+Configurado para aceptar peticiones desde cualquier origen (*), habilitando GET, POST, PUT, DELETE, OPTIONS — pensado para ser consumido por un frontend o, como en el proyecto integrador análogo, por un pipeline de análisis de datos en Python.
